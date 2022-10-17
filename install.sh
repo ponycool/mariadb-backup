@@ -14,7 +14,7 @@ timedatectl
 apt install -y --no-install-recommends cron wget
 
 # shellcheck disable=SC2046
-$ wget https://repo.percona.com/apt/percona-release_latest.$(lsb_release -sc)_all.deb
+wget https://repo.percona.com/apt/percona-release_latest.$(lsb_release -sc)_all.deb
 
 # shellcheck disable=SC2046
 sudo dpkg -i percona-release_latest.$(lsb_release -sc)_all.deb
@@ -27,4 +27,4 @@ apt clean
 rm -rf /var/log/*
 rm -rf /var/lib/apt/lists/*
 # shellcheck disable=SC2046
-rm -rf percona-release_latest.$(lsb_release -sc)_all.deb
+#rm -rf percona-release_latest.$(lsb_release -sc)_all.deb
