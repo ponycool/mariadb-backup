@@ -22,9 +22,7 @@ check_has_other_task() {
   if [ ! -x ~/.run ];then
     touch ~/.run
   fi
-  # shellcheck disable=SC2006
   last=`cat ~/.run`
-  # shellcheck disable=SC2006
   now=`date +%Y%m%d`
   if [ "$last" = "$now" ];then
     error "has task is running, stop this task"
@@ -33,12 +31,10 @@ check_has_other_task() {
 }
 
 date_time() {
-  # shellcheck disable=SC2046
-  # shellcheck disable=SC2006
   echo `date +"%Y-%m-%d %H:%M:%S"`": "
 }
 
-INNOBACKUPEXFULL=/usr/bin/innobackupex
+INNOBACKUPEXFULL=/usr/bin/xtrabackup
 TODAY=`date +%Y%m%d%H%M`
 YESTERDAY=`date -d "yesterday" +%Y%m%d%H%M`
 FULLBACKUPDIR=$BASE_DIR/full # 全库备份的目录
@@ -57,7 +53,7 @@ fi
 
 # 如果备份目录不存在则创建相应的全备增备目录
 for i in $FULLBACKUPDIR $INCRBACKUPDIR $TMPFILEDIR; do
-  if [ ! -d $i ]; then
-    mkdir -pv $i
+  if [ ! -d "$i" ]; then
+    mkdir -pv "$i"
   fi
 done
