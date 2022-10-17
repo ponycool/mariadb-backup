@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 IMAGE=mariadb-backup
-VERSION=1.0
+VERSION=latest
 
 #清除tag为none的镜像
 docker ps -a | grep "Exited" | awk '{print $1}' | xargs docker stop
@@ -20,4 +20,8 @@ docker buildx create --use --name larger_log --node larger_log0 --driver-opt env
 docker buildx inspect larger_log --bootstrap
 
 #重新生成
-docker buildx build -t ponycool/$IMAGE-$VERSION --load ./
+if [ $VERSION == "latest" ]; then
+  docker buildx build -t ponycool/$IMAGE --load ./
+else
+  docker buildx build -t ponycool/$IMAGE-$VERSION --load ./
+fi
