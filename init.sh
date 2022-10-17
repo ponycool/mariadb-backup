@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+CMD_DIR=/var/backup-cmd
+
 # 如果用户未设置BASE_DIR，备份会保存在VOLUME中，防止备份丢失
 if [ "$BASE_DIR" = "" ]; then
   export BASE_DIR=/data
@@ -11,10 +14,11 @@ echo "export OPTION='$OPTION'" >>/dockerenv
 if [ "$1" == "init" ]; then
   # 初始化执行环境
   /etc/init.d/cron start
-  echo '0 3 * * 3,6 root /root/fullbak.sh > /var/log/mariadb_backup.log 2>&1' >>/etc/crontab
-  echo '0 */2 * * * root /root/incrbak.sh >> /var/log/mariadb_backup.log 2>&1' >>/etc/crontab
-  /root/fullbak.sh >/var/log/mysql_backup.log 2>&1
-  tail -f /var/log/mysql_backup.log
+  echo "0 3 * * 3,6 root ${CMD_DIR}/full_backup.sh > /var/log/mariadb_backup.log 2>&1" >>/etc/crontab
+  # shellcheck disable=SC2016
+  echo "0 */2 * * * root ${CMD_DIR}/incr_backup.sh >> /var/log/mariadb_backup.log 2>&1" >>/etc/crontab
+  ${CMD_DIR}/full_backup.sh >/var/log/mariadb_backup.log 2>&1
+  tail -f /var/log/mariadb_backup.log
 else
   # 透传待执行的命令
   exec "$@"
