@@ -1,30 +1,21 @@
 #!/usr/bin/env bash
 
-# 修改镜像源
-sudo sed -i "s@http://.*archive.ubuntu.com@https://mirrors.tuna.tsinghua.edu.cn@g" /etc/apt/sources.list
-sudo sed -i "s@http://.*security.ubuntu.com@https://mirrors.tuna.tsinghua.edu.cn@g" /etc/apt/sources.list
-
-apt update -y && apt upgrade -y
-
-# 修改时区
-
-timedatectl set-timezone Aisa/Shanghai
-timedatectl
+XTRA_DIR=/var/xtrabackup
+XTRA_VERSION=8.0.26-18
 
 apt install -y --no-install-recommends cron wget
 
-# shellcheck disable=SC2046
-wget https://repo.percona.com/apt/percona-release_latest.$(lsb_release -sc)_all.deb
+mkdir ${XTRA_DIR} && cd ${XTRA_DIR}
+wget wget --no-check-certificate -O percona-xtrabackup-${XTRA_VERSION}.deb \
+  https://downloads.percona.com/downloads/Percona-XtraBackup-LATEST/Percona-XtraBackup-${XTRA_VERSION}/binary/debian/focal/x86_64/percona-xtrabackup-80_${XTRA_VERSION}-1.focal_amd64.deb
 
-# shellcheck disable=SC2046
-sudo dpkg -i percona-release_latest.$(lsb_release -sc)_all.deb
-percona-release enable-only tools release
-apt update
-sudo apt install percona-xtrabackup-80
-sudo apt install qpress
+dpkg -i percona-xtrabackup-${XTRA_VERSION}.deb
+apt update -y && apt upgrade -y
+
+apt install -y libaio1
+apt --fix-broken install -y
 
 apt clean
 rm -rf /var/log/*
 rm -rf /var/lib/apt/lists/*
-# shellcheck disable=SC2046
-#rm -rf percona-release_latest.$(lsb_release -sc)_all.deb
+rm -rf ${XTRA_DIR}
