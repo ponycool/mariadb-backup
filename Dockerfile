@@ -1,16 +1,16 @@
 FROM ubuntu:20.04
 LABEL maintainer="MariaDB Backup DOCKER MAINTAINER <pony@ponycool.com>"
 
+ENV BACKUP_DIR=/mnt/backup
+
 ARG CMD_DIR=/var/backup-cmd
 
-COPY  install.sh init.sh common.sh fullbak.sh incrbak.sh ${CMD_DIR}
+COPY  install.sh init.sh common.sh full_backup.sh incr_backup.sh ${CMD_DIR}/
 
-RUN sh ${CMD_DIR}/install.sh && \
-    rm -rf ${CMD_DIR}/install.sh \
-    && chmod a+x ${CMD_DIR}/*.sh
-
-#COPY init.sh /root/
-#RUN chmod a+x /root/*.sh
+RUN chmod a+x ${CMD_DIR}/*.sh \
+    && sh ${CMD_DIR}/install.sh \
+    && mkdir ${BACKUP_DIR} \
+    && rm -rf ${CMD_DIR}/install.sh
 
 VOLUME /mnt/backup
 
