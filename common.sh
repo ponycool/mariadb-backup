@@ -22,7 +22,9 @@ check_has_other_task() {
   if [ ! -x ~/.run ];then
     touch ~/.run
   fi
+  # shellcheck disable=SC2006
   last=`cat ~/.run`
+  # shellcheck disable=SC2006
   now=`date +%Y%m%d`
   if [ "$last" = "$now" ];then
     error "has task is running, stop this task"
@@ -31,6 +33,8 @@ check_has_other_task() {
 }
 
 date_time() {
+  # shellcheck disable=SC2046
+  # shellcheck disable=SC2006
   echo `date +"%Y-%m-%d %H:%M:%S"`": "
 }
 
