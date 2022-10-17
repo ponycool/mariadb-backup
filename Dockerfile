@@ -1,6 +1,10 @@
 FROM ubuntu:20.04
 LABEL maintainer="MariaDB Backup DOCKER MAINTAINER <pony@ponycool.com>"
 
+ENV USER=root
+ENV PASSWORD=mysql
+ENV PORT=3306
+ENV SOCKET=/var/lib/mysql/mysqld.sock
 ENV BACKUP_DIR=/mnt/backup
 
 ARG CMD_DIR=/var/backup-cmd
