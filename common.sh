@@ -37,9 +37,9 @@ date_time() {
 INNOBACKUPEXFULL=/usr/bin/mariabackup
 TODAY=`date +%Y%m%d%H%M`
 YESTERDAY=`date -d "yesterday" +%Y%m%d%H%M`
-FULLBACKUPDIR=$BASE_DIR/full # 全库备份的目录
-INCRBACKUPDIR=$BASE_DIR/incr # 增量备份的目录
-TMPFILEDIR=$BASE_DIR/logs # 日志目录
+FULLBACKUPDIR=$BACKUP_DIR/full # 全库备份的目录
+INCRBACKUPDIR=$BACKUP_DIR/incr # 增量备份的目录
+TMPFILEDIR=$BACKUP_DIR/logs # 日志目录
 TMPFILE="$TMPFILEDIR/innobackup_$TODAY.$$.log" # 日志文件
 
 # 开始备份前检查相关的参数
@@ -47,9 +47,9 @@ if [ ! -x $INNOBACKUPEXFULL ]; then
   error "$INNOBACKUPEXFULL does not exist."
 fi
 
-#if [ ! -d $BASE_DIR ]; then
-#  error "Backup destination folder: $BASE_DIR does not exist."
-#fi
+if [ ! -d "$BACKUP_DIR" ]; then
+  error "Backup destination folder: $BACKUP_DIR does not exist."
+fi
 
 # 如果备份目录不存在则创建相应的全备增备目录
 for i in $FULLBACKUPDIR $INCRBACKUPDIR $TMPFILEDIR; do
