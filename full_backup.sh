@@ -10,7 +10,7 @@ echo $(date_time)"start exec full back script"
 
 # 压缩上传前一天的备份
 echo $(date_time)"compress the backup data of the last time"
-cd "$BASE_DIR"
+cd "$BACKUP_DIR"
 tar -zcf "$YESTERDAY".tar.gz ./full/ ./incr/
 # 如果设置了备份语句，执行备份语句
 if [ -n "$BACKUP_SCRIPTS" ]; then
@@ -24,11 +24,11 @@ if [ -n "$BACKUP_SCRIPTS" ]; then
 fi
 # scp -P 8022 $YESTERDAY.tar.gz root@192.168.10.46:/data/backup/mysql/
 rm -rf "$FULLBACKUPDIR" "$INCRBACKUPDIR"
-echo $(date_time)"start exec $INNOBACKUPEXFULL --backup --target-dir=$FULLBACKUPDIR "\
-"--host=$HOST --port=$PORT --user=$USER --password=$PASSWORD  > $TMPFILE 2>&1"
+echo $(date_time)"start exec $INNOBACKUPEXFULL --backup --target-dir=$FULLBACKUPDIR " \
+  "--host=$HOST --port=$PORT --user=$USER --password=$PASSWORD  > $TMPFILE 2>&1"
 
 $INNOBACKUPEXFULL --backup --target-dir="$FULLBACKUPDIR" \
---host="$HOST" --port="$PORT" --user="$USER" --password="$PASSWORD" >"$TMPFILE" 2>&1
+  --host="$HOST" --port="$PORT" --user="$USER" --password="$PASSWORD" >"$TMPFILE" 2>&1
 
 if [ -z "$(tail -1 "$TMPFILE" | grep 'completed OK!')" ]; then
   echo "$INNOBACKUPEXFULL failed:"
@@ -48,7 +48,7 @@ echo "Databases backed up successfully to: $THISBACKUP"
 
 # Cleanup
 echo "delete tar files of 10 days ago"
-find "$BASE_DIR"/ -mtime +10 -name "*.tar.gz" -exec rm -rf {} \;
+find "$BACKUP_DIR"/ -mtime +10 -name "*.tar.gz" -exec rm -rf {} \;
 
 echo
 echo "completed: $(date '+%Y-%m-%d %H:%M:%S')"
