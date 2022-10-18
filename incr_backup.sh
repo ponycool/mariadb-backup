@@ -22,7 +22,7 @@ echo $(date_time)"最近的全备目录为: $LATEST_FULL"
 # 创建增量备份的目录
 TMPINCRDIR=$INCRBACKUPDIR/$LATEST_FULL
 mkdir -p "$TMPINCRDIR"
-BACKTYPE="incr"
+BACKUP_TYPE="incr"
 # 获取最近的增量备份目录
 LATEST_INCR=$(find $TMPINCRDIR -mindepth 1 -maxdepth 1 -type d | sort -nr | head -1)
 echo "最近的增量备份目录为: $LATEST_INCR"
