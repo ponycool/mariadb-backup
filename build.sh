@@ -9,9 +9,9 @@ docker ps -a | grep "Exited" | awk '{print $2}' | xargs docker rm
 docker images | grep none | awk '{print $3}' | xargs docker rmi
 
 #清除已有的
-docker stop $IMAGE-$VERSION
-docker rm $IMAGE-$VERSION
-docker rmi ponycool/$IMAGE-$VERSION
+docker stop $IMAGE
+docker rm $IMAGE
+docker rmi ponycool/$IMAGE:$VERSION
 
 # 启用buildx插件，适用于v19.03+
 docker buildx create --use --name larger_log --node larger_log0 --driver-opt env.BUILDKIT_STEP_LOG_MAX_SIZE=10485760
@@ -20,8 +20,4 @@ docker buildx create --use --name larger_log --node larger_log0 --driver-opt env
 docker buildx inspect larger_log --bootstrap
 
 #重新生成
-if [ $VERSION == "latest" ]; then
-  docker buildx build -t ponycool/$IMAGE --load ./
-else
-  docker buildx build -t ponycool/$IMAGE-$VERSION --load ./
-fi
+docker buildx build -t ponycool/$IMAGE --load ./
