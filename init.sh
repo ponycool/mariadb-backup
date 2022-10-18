@@ -2,14 +2,14 @@
 
 CMD_DIR=/var/backup-cmd
 
-# 如果用户未设置BASE_DIR，备份会保存在VOLUME中，防止备份丢失
-if [ "$BASE_DIR" = "" ]; then
-  export BASE_DIR=/data
+# 如果用户未设置BACKUP_DIR，备份会保存在VOLUME中，防止备份丢失
+if [ "$BACKUP_DIR" = "" ]; then
+  export BACKUP_DIR=/mnt/backup
 fi
 
 # 将环境变量写入到文件中，方便定时任务在执行时获取，要不定时任务获取不到Docker设置的环境变量
 echo "export BACKUP_SCRIPTS='$BACKUP_SCRIPTS'" >/dockerenv
-echo "export BASE_DIR='$BASE_DIR'" >>/dockerenv
+echo "export BACKUP_DIR='$BACKUP_DIR'" >>/dockerenv
 echo "export OPTION='$OPTION'" >>/dockerenv
 if [ "$1" == "init" ]; then
   # 初始化执行环境
