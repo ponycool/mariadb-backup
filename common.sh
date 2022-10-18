@@ -34,7 +34,7 @@ date_time() {
   echo `date +"%Y-%m-%d %H:%M:%S"`": "
 }
 
-INNOBACKUPEXFULL=/usr/bin/xtrabackup
+INNOBACKUPEXFULL=/usr/bin/mariabackup
 TODAY=`date +%Y%m%d%H%M`
 YESTERDAY=`date -d "yesterday" +%Y%m%d%H%M`
 FULLBACKUPDIR=$BASE_DIR/full # 全库备份的目录
