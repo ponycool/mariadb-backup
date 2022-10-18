@@ -27,8 +27,8 @@ rm -rf "$FULLBACKUPDIR" "$INCRBACKUPDIR"
 echo $(date_time)"start exec $INNOBACKUPEXFULL --backup --data-dir=/var/lib/mysql --target-dir=$FULLBACKUPDIR "\
 "--user=$USER --password=$PASSWORD --port=$PORT --socket=$SOCKET > $TMPFILE 2>&1"
 
-$INNOBACKUPEXFULL --backup --data-dir=/var/lib/mysql --target-dir=$FULLBACKUPDIR \
-  --user=$USER --password=$PASSWORD --port=$PORT --socket=$SOCKET >$TMPFILE 2>&1
+$INNOBACKUPEXFULL --backup --data-dir=/var/lib/mysql --target-dir="$FULLBACKUPDIR" \
+  --host="$HOST" --port="$PORT"--user="$USER" --password="$PASSWORD" >"$TMPFILE" 2>&1
 
 if [ -z "$(tail -1 "$TMPFILE" | grep 'completed OK!')" ]; then
   echo "$INNOBACKUPEXFULL failed:"
