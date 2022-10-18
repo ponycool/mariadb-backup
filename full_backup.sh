@@ -24,18 +24,18 @@ if [ -n "$BACKUP_SCRIPTS" ]; then
 fi
 # scp -P 8022 $YESTERDAY.tar.gz root@192.168.10.46:/data/backup/mysql/
 rm -rf "$FULLBACKUPDIR" "$INCRBACKUPDIR"
-echo $(date_time)"start exec $INNOBACKUPEXFULL --backup --data-dir=/var/lib/mysql --target-dir=$FULLBACKUPDIR "\
-"--user=$USER --password=$PASSWORD --port=$PORT --socket=$SOCKET > $TMPFILE 2>&1"
+echo $(date_time)"start exec $INNOBACKUPEXFULL --backup --target-dir=$FULLBACKUPDIR "\
+"--host=$HOST --port=$PORT --user=$USER --password=$PASSWORD  > $TMPFILE 2>&1"
 
-$INNOBACKUPEXFULL --backup --data-dir=/var/lib/mysql --target-dir="$FULLBACKUPDIR" \
-  --host="$HOST" --port="$PORT"--user="$USER" --password="$PASSWORD" >"$TMPFILE" 2>&1
+$INNOBACKUPEXFULL --backup --target-dir="$FULLBACKUPDIR" \
+--host="$HOST" --port="$PORT" --user="$USER" --password="$PASSWORD" >"$TMPFILE" 2>&1
 
 if [ -z "$(tail -1 "$TMPFILE" | grep 'completed OK!')" ]; then
   echo "$INNOBACKUPEXFULL failed:"
   echo
   echo "---------- ERROR OUTPUT from $INNOBACKUPEXFULL ----------"
   cat "$TMPFILE"
-  rm -f $TMPFILE
+  rm -f "$TMPFILE"
   error "backup data failed"
 fi
 
