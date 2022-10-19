@@ -11,7 +11,7 @@ fi
 echo "export BACKUP_SCRIPTS='$BACKUP_SCRIPTS'" >$BACKUP_DIR/.env
 echo "export BACKUP_DIR='$BACKUP_DIR'" >>$BACKUP_DIR/.env
 # 备份选项
-echo "export BACKUP_OPTIONS='-H$HOST -P$PORT -u$USER -p$PASSWORD'" >>$BACKUP_DIR/.env
+echo "export BACKUP_OPTIONS='--host=$HOST --port=$PORT --user=$USER --password=$PASSWORD'" >>$BACKUP_DIR/.env
 
 if [ "$1" == "init" ]; then
   # 初始化执行环境
