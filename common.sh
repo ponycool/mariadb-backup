@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # docker需要判断环境变量文件是否存在
-if [ -f /dockerenv ]; then
-  . /dockerenv
+if [ -f /"$BACKUP_DIR"/env ]; then
+  . /"$BACKUP_DIR"/env
   env
 fi
 
@@ -35,10 +35,6 @@ date_time() {
 }
 
 INNOBACKUPEXFULL=/usr/bin/mariabackup
-# 脱敏备份选项，用于日志
-BACKUP_OPTIONS_DS="--host=$HOST --port=$PORT --user=$USER --password=******"
-# 备份选项
-BACKUP_OPTIONS="--host=$HOST --port=$PORT --user=$USER --password=$PASSWORD"
 TODAY=$(date +%Y%m%d%H%M)
 YESTERDAY=$(date -d "yesterday" +%Y%m%d%H%M)
 FULLBACKUPDIR=$BACKUP_DIR/full             # 全库备份的目录
