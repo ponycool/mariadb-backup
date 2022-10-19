@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-# docker需要判断环境变量文件是否存在
+# docker需要判断环境变量文件是否存在，如果存在导出到环境变量
 if [ -f "$BACKUP_DIR/.env" ]; then
-  . "$BACKUP_DIR/.env"
+  cd "$BACKUP_DIR" || exit
+  . ./.env
   env
 fi
 

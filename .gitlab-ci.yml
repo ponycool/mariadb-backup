@@ -10,26 +10,17 @@ variables:
   DOCKER_TLS_CERTDIR: "/certs"
   DOCKER_REGISTRY: https://index.docker.io
 services:
-- docker:20.10.16-dind
+  - docker:20.10.16-dind
 before_script:
-- docker info
+  - docker info
 stages:
-- build
-- test
+  - build
 build:
   stage: build
   before_script:
-  - echo "$DOCKER_REGISTRY_PASSWORD" | docker login --username $DOCKER_REGISTRY_USER
-    --password-stdin
+    - echo "$DOCKER_REGISTRY_PASSWORD" | docker login --username $DOCKER_REGISTRY_USER
+      --password-stdin
   script:
-  - apk add bash make
-  - make build
-  - make push
-sast:
-  stage: test
-secret_detection:
-  variables:
-    SECRET_DETECTION_HISTORIC_SCAN: 'true'
-include:
-- template: Security/SAST.gitlab-ci.yml
-- template: Security/Secret-Detection.gitlab-ci.yml
+    - apk add bash make
+    - make build
+    - make push
