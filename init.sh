@@ -8,14 +8,16 @@ if [ "$BACKUP_DIR" = "" ]; then
 fi
 
 # 将环境变量写入到文件中，方便定时任务在执行时获取
-export BACKUP_SCRIPTS="$BACKUP_SCRIPTS"
-export BACKUP_DIR="$BACKUP_DIR"
+echo "export BACKUP_SCRIPTS=$BACKUP_SCRIPTS" >>~/.bashrc
+echo "export BACKUP_DIR=$BACKUP_DIR" >>~/.bashrc
 # 备份选项
 if [ "$BACKUP_OPTIONS" = "" ]; then
   BACKUP_OPTIONS="--host=$HOST --port=$PORT --user=$USER --password=$PASSWORD"
 fi
 
-export BACKUP_OPTIONS="$BACKUP_OPTIONS"
+echo "export BACKUP_OPTIONS=$BACKUP_OPTIONS" >>~/.bashrc
+
+source ~/.bashrc
 
 if [ "$1" == "init" ]; then
   # 初始化执行环境

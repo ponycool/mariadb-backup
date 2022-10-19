@@ -10,7 +10,7 @@
 
 ## 安装（Installation）
 
-镜像tag必须与MariaDB版本一致
+镜像TAG必须与MariaDB版本一致
 
 ```
 docker pull ponycool/mariadb-backup:latest
@@ -20,6 +20,7 @@ docker pull ponycool/mariadb-backup:latest
 
 ```
 docker run -it --name mariadb-backup \
+-e USER=root
 -e PASSWORD=123456 \
 -e HOST=127.0.0.1 \
 -e PORT=3306 \
