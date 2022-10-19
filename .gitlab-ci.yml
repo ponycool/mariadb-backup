@@ -18,6 +18,7 @@ stages:
 build:
   stage: build
   script:
+    - apt install -y make
     - make build
 sast:
   stage: test
