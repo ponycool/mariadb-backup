@@ -26,24 +26,22 @@ BACKUP_TYPE="incr"
 # 获取最近的增量备份目录
 LATEST_INCR=$(find $TMPINCRDIR -mindepth 1 -maxdepth 1 -type d | sort -nr | head -1)
 echo "最近的增量备份目录为: $LATEST_INCR"
-# 如果是首次增量备份，那么basedir则选择全备目录，否则选择最近一次的增量备份目录
+# 如果是首次增量备份，那么BackupDir则选择全备目录，否则选择最近一次的增量备份目录
 if [ ! $LATEST_INCR ]; then
   INCRBASEDIR=$FULLBACKUPDIR/$LATEST_FULL
 else
   INCRBASEDIR=$LATEST_INCR
 fi
 echo "Running new incremental backup using $INCRBASEDIR as base."
-echo "start exec $INNOBACKUPEXFULL --host=$HOST --port=$PORT --user=$USER --password=$PASSWORD --incremental "\
-"$TMPINCRDIR --incremental-basedir $INCRBASEDIR > $TMPFILE 2>&1"
+echo "start exec $INNOBACKUPEXFULL $BACKUP_OPTIONS_DS --incremental $TMPINCRDIR --incremental-basedir $INCRBASEDIR > $TMPFILE 2>&1"
 
-$INNOBACKUPEXFULL --host="$HOST" --port="$PORT" --user="$USER" --password="$PASSWORD" --incremental \
-"$TMPINCRDIR" --incremental-basedir "$INCRBASEDIR" >"$TMPFILE" 2>&1
+$INNOBACKUPEXFULL "$BACKUP_OPTIONS" --incremental "$TMPINCRDIR" --incremental-basedir "$INCRBASEDIR" >"$TMPFILE" 2>&1
 
 if [ -z "$(tail -1 $TMPFILE | grep 'completed OK!')" ]; then
   echo "$INNOBACKUPEX failed:"
   echo
   echo "---------- ERROR OUTPUT from $INNOBACKUPEX ----------"
-  error "incr backup faild"
+  error "incr backup failed"
 fi
 
 # 这里获取这次备份的目录
