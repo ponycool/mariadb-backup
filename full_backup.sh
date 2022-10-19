@@ -24,7 +24,7 @@ if [ -n "$BACKUP_SCRIPTS" ]; then
 fi
 
 rm -rf "$FULLBACKUPDIR" "$INCRBACKUPDIR"
-echo $(date_time)"start exec $INNOBACKUPEXFULL --backup $BACKUP_OPTIONS_DS --target-dir=$FULLBACKUPDIR > $TMPFILE 2>&1"
+echo $(date_time)"start exec $INNOBACKUPEXFULL --backup $BACKUP_OPTIONS --target-dir=$FULLBACKUPDIR > $TMPFILE 2>&1"
 
 $INNOBACKUPEXFULL --backup "$BACKUP_OPTIONS" --target-dir="$FULLBACKUPDIR" > "$TMPFILE" 2>&1
 

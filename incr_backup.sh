@@ -33,7 +33,7 @@ else
   INCRBASEDIR=$LATEST_INCR
 fi
 echo "Running new incremental backup using $INCRBASEDIR as base."
-echo "start exec $INNOBACKUPEXFULL $BACKUP_OPTIONS_DS --incremental $TMPINCRDIR --incremental-basedir $INCRBASEDIR > $TMPFILE 2>&1"
+echo "start exec $INNOBACKUPEXFULL $BACKUP_OPTIONS --incremental $TMPINCRDIR --incremental-basedir $INCRBASEDIR > $TMPFILE 2>&1"
 
 $INNOBACKUPEXFULL "$BACKUP_OPTIONS" --incremental "$TMPINCRDIR" --incremental-basedir "$INCRBASEDIR" >"$TMPFILE" 2>&1
 
