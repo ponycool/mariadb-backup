@@ -8,9 +8,10 @@ if [ "$BACKUP_DIR" = "" ]; then
 fi
 
 # 将环境变量写入到文件中，方便定时任务在执行时获取，要不定时任务获取不到Docker设置的环境变量
-echo "export BACKUP_SCRIPTS='$BACKUP_SCRIPTS'" >/dockerenv
-echo "export BACKUP_DIR='$BACKUP_DIR'" >>/dockerenv
-echo "export OPTION='$OPTION'" >>/dockerenv
+echo "export BACKUP_SCRIPTS='$BACKUP_SCRIPTS'" >$BACKUP_DIR/env
+echo "export BACKUP_DIR='$BACKUP_DIR'" >>$BACKUP_DIR/env
+# 备份选项
+echo "export BACKUP_OPTIONS=--host=$HOST --port=$PORT --user=$USER --password=$PASSWORD" >>$BACKUP_DIR/env
 if [ "$1" == "init" ]; then
   # 初始化执行环境
   /etc/init.d/cron start
