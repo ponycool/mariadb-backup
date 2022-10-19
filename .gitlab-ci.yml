@@ -26,6 +26,9 @@ build:
     - make push
 sast:
   stage: test
+secret_detection:
+  variables:
+    SECRET_DETECTION_HISTORIC_SCAN: "true"
 include:
   - template: Security/SAST.gitlab-ci.yml
   - template: Security/Secret-Detection.gitlab-ci.yml
