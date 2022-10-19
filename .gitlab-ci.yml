@@ -9,18 +9,19 @@ image: docker:20.10.16
 variables:
   DOCKER_TLS_CERTDIR: "/certs"
 services:
-  - docker:20.10.16-dind
+- docker:20.10.16-dind
 before_script:
-  - docker info
+- docker info
 stages:
-  - build
-  - test
+- build
+- test
 build:
   stage: build
   script:
-    - apt install -y make
-    - make build
+  - apt install -y make
+  - make build
 sast:
   stage: test
 include:
-  - template: Security/SAST.gitlab-ci.yml
+- template: Security/SAST.gitlab-ci.yml
+- template: Security/Secret-Detection.gitlab-ci.yml
