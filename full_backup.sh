@@ -22,13 +22,11 @@ if [ -n "$BACKUP_SCRIPTS" ]; then
     echo $(date_time)"exec backup script failed"
   fi
 fi
-# scp -P 8022 $YESTERDAY.tar.gz root@192.168.10.46:/data/backup/mysql/
-rm -rf "$FULLBACKUPDIR" "$INCRBACKUPDIR"
-echo $(date_time)"start exec $INNOBACKUPEXFULL --backup --target-dir=$FULLBACKUPDIR " \
-  "--host=$HOST --port=$PORT --user=$USER --password=$PASSWORD  > $TMPFILE 2>&1"
 
-$INNOBACKUPEXFULL --backup --target-dir="$FULLBACKUPDIR" \
-  --host="$HOST" --port="$PORT" --user="$USER" --password="$PASSWORD" >"$TMPFILE" 2>&1
+rm -rf "$FULLBACKUPDIR" "$INCRBACKUPDIR"
+echo $(date_time)"start exec $INNOBACKUPEXFULL --backup $BACKUP_OPTIONS_DS --target-dir=$FULLBACKUPDIR > $TMPFILE 2>&1"
+
+$INNOBACKUPEXFULL --backup "$BACKUP_OPTIONS" --target-dir="$FULLBACKUPDIR" > "$TMPFILE" 2>&1
 
 if [ -z "$(tail -1 "$TMPFILE" | grep 'completed OK!')" ]; then
   echo "$INNOBACKUPEXFULL failed:"
