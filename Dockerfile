@@ -6,6 +6,7 @@ ENV USER=root
 ENV PASSWORD=mysql
 ENV PORT=3306
 ENV HOST=127.0.0.1
+ENV BACKUP_OPTIONS=""
 ENV BACKUP_DIR=/mnt/backup
 
 ARG CMD_DIR=/var/backup-cmd
