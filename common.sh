@@ -4,7 +4,8 @@
 if [ -f "$BACKUP_DIR/.env" ]; then
   cd "$BACKUP_DIR" || exit
   chmod +x .env
-  source .env env
+  source .env
+  env
 fi
 
 #############################################################################
