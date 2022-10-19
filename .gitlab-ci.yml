@@ -18,7 +18,7 @@ stages:
 build:
   stage: build
   script:
-    - apk add make
+    - apk add bash make
     - make build
 sast:
   stage: test
