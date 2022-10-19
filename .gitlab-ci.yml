@@ -6,6 +6,10 @@
 # Note that environment variables can be set in several places
 # See https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
 image: docker:20.10.16
+services:
+  - docker:20.10.16-dind
+before_script:
+  - docker info
 stages:
   - build
   - test
