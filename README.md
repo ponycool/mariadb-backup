@@ -6,7 +6,6 @@
 [MariaDB Backup仓库的设置及使用参考](https://mariadb.com/kb/en/mariadb-package-repository-setup-and-usage/)
 
 感谢[fanxcv](https://github.com/fanxcv/xtrabackup-docker)
-## Visuals
 
 ## 安装（Installation）
 
@@ -27,6 +26,8 @@ docker run -it --name mariadb-backup \
 -v 
 ponycool/mariadb-backup:latest
 ```
+
+## 编译 (Build)
 
 ## 帮助支持（Support）
 

@@ -15,7 +15,7 @@ if [ "$BACKUP_OPTIONS" = "" ]; then
   BACKUP_OPTIONS="--host=$HOST --port=$PORT --user=$USER --password=$PASSWORD"
 fi
 
-echo "export BACKUP_OPTIONS=$BACKUP_OPTIONS" >>~/.bashrc
+echo "export BACKUP_OPTIONS='$BACKUP_OPTIONS'" >>~/.bashrc
 
 source ~/.bashrc
 
