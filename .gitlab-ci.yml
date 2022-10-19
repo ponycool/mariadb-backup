@@ -8,7 +8,7 @@
 image: docker:20.10.16
 variables:
   DOCKER_TLS_CERTDIR: "/certs"
-  DOCKER_REGISTRY: "https://hub.docker.com"
+  DOCKER_REGISTRY: "https://index.docker.io"
 services:
   - docker:20.10.16-dind
 before_script:
