@@ -34,7 +34,9 @@ RUN apt update -y \
     && rm -rf /var/log/* \
     && rm -rf /var/lib/apt/lists/*
 
-VOLUME /mnt/backup
+VOLUME ${BACKUP_DIR}
+
+WORKDIR ${BACKUP_DIR}
 
 ENTRYPOINT ["/var/backup-cmd/init.sh"]
 
