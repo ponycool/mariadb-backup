@@ -23,26 +23,26 @@ if [ -n "$BACKUP_SCRIPTS" ]; then
   fi
 fi
 
-rm -rf "$FULLBACKUPDIR" "$INCRBACKUPDIR"
-echo $(date_time)"start exec $INNOBACKUPEXFULL --backup $BACKUP_OPTIONS --target-dir=$FULLBACKUPDIR > $TMPFILE 2>&1"
+rm -rf "$FULL_BACKUP_DIR" "$INCR_BACKUP_DIR"
+echo $(date_time)"start exec $BACKUP_EX --backup $BACKUP_OPTIONS --target-dir=$FULL_BACKUP_DIR > $TMP_FILE 2>&1"
 
-$INNOBACKUPEXFULL --backup "$BACKUP_OPTIONS" --target-dir="$FULLBACKUPDIR" > "$TMPFILE" 2>&1
+$BACKUP_EX --backup $(echo "$BACKUP_OPTIONS") --target-dir="$FULL_BACKUP_DIR" >"$TMP_FILE" 2>&1
 
-if [ -z "$(tail -1 "$TMPFILE" | grep 'completed OK!')" ]; then
-  echo "$INNOBACKUPEXFULL failed:"
+if [ -z "$(tail -1 "$TMP_FILE" | grep 'completed OK!')" ]; then
+  echo "$BACKUP_EX failed:"
   echo
-  echo "---------- ERROR OUTPUT from $INNOBACKUPEXFULL ----------"
-  cat "$TMPFILE"
-  rm -f "$TMPFILE"
+  echo "---------- ERROR OUTPUT from $BACKUP_EX ----------"
+  cat "$TMP_FILE"
+  rm -f "$TMP_FILE"
   error "backup data failed"
 fi
 
 # 这里获取这次备份的目录
-THISBACKUP=$(awk -- "/Backup created in directory/ { split( \$0, p, \"'\" ) ; print p[2] }"" $TMPFI"LE)
-echo "THISBACKUP=$THISBACKUP"
-rm -f "$TMPFILE"
+THIS_BACKUP=$(awk -- "/Backup created in directory/ { split( \$0, p, \"'\" ) ; print p[2] }"" $TMPFI"LE)
+echo "THIS_BACKUP=$THIS_BACKUP"
+rm -f "$TMP_FILE"
 echo
-echo "Databases backed up successfully to: $THISBACKUP"
+echo "Databases backed up successfully to: $THIS_BACKUP"
 
 # Cleanup
 echo "delete tar files of 10 days ago"
