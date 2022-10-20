@@ -1,6 +1,9 @@
+# 默认版本
+version = latest
+
 .PHONY: build
 build:
-	./build.sh
+	./build.sh ${version}
 
 .PHONY: push
 push:
