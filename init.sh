@@ -4,7 +4,8 @@ CMD_DIR=/var/backup-cmd
 
 # 如果用户未设置BACKUP_DIR，备份会保存在VOLUME中，防止备份丢失
 if [ "$BACKUP_DIR" = "" ]; then
-  export BACKUP_DIR=/mnt/backup
+  BACKUP_DIR=/mnt/backup
+  export BACKUP_DIR=$BACKUP_DIR
 fi
 
 # 将环境变量写入到文件中，方便定时任务在执行时获取
