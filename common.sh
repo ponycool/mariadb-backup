@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+. ~/.bashrc
+env
+
 #############################################################################
 # 打印错误信息并退出
 #############################################################################
@@ -31,9 +34,9 @@ date_time() {
 BACKUP_EX=/usr/bin/mariabackup
 TODAY=$(date +%Y%m%d%H%M)
 YESTERDAY=$(date -d "yesterday" +%Y%m%d%H%M)
-FULL_BACKUP_DIR=$BACKUP_DIR/full             # 全库备份的目录
-INCR_BACKUP_DIR=$BACKUP_DIR/incr             # 增量备份的目录
-TMP_FILE_DIR=$BACKUP_DIR/logs                # 日志目录
+FULL_BACKUP_DIR=$BACKUP_DIR/full              # 全库备份的目录
+INCR_BACKUP_DIR=$BACKUP_DIR/incr              # 增量备份的目录
+TMP_FILE_DIR=$BACKUP_DIR/logs                 # 日志目录
 TMP_FILE="$TMP_FILE_DIR/backup_$TODAY.$$.log" # 日志文件
 
 # 开始备份前检查相关的参数
