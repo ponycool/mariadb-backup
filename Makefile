@@ -7,4 +7,4 @@ build:
 
 .PHONY: push
 push:
-	docker push ponycool/mariadb-backup:latest
+	docker push ponycool/mariadb-backup:${version}
