@@ -23,7 +23,7 @@ docker run -it --name mariadb-backup \
 -e PASSWORD=123456 \
 -e HOST=127.0.0.1 \
 -e PORT=3306 \
--v 
+-v /var/lib/mysql:/var/lib/mysql
 ponycool/mariadb-backup:latest
 ```
 
