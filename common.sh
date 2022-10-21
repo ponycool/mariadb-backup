@@ -51,7 +51,7 @@ if [ ! -d "$BACKUP_DIR" ]; then
 fi
 
 # 如果备份目录不存在则创建相应的全备增备目录
-for i in $FULL_BACKUP_FULL $INCR_BACKUP_DIR $TMP_FILE_DIR; do
+for i in $FULL_BACKUP_DIR $INCR_BACKUP_DIR $TMP_FILE_DIR; do
   if [ ! -d "$i" ]; then
     mkdir -pv "$i"
   fi
