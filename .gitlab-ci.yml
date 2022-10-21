@@ -17,6 +17,8 @@ stages:
   - build
 build:
   stage: build
+  only:
+    - main
   before_script:
     - echo "$DOCKER_REGISTRY_PASSWORD" | docker login --username $DOCKER_REGISTRY_USER
       --password-stdin
