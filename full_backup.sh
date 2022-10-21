@@ -26,7 +26,7 @@ fi
 rm -rf "$FULL_BACKUP_DIR" "$INCR_BACKUP_DIR"
 echo $(date_time)"start exec $BACKUP_EX --backup $BACKUP_OPTIONS --target-dir=$FULL_BACKUP_DIR > $TMP_FILE 2>&1"
 
-$BACKUP_EX --backup $(echo "$BACKUP_OPTIONS") --target-dir="$FULL_BACKUP_DIR" >"$TMP_FILE" 2>&1
+$BACKUP_EX --backup "$BACKUP_OPTIONS" --target-dir="$FULL_BACKUP_DIR" >"$TMP_FILE" 2>&1
 
 if [ -z "$(tail -1 "$TMP_FILE" | grep 'completed OK!')" ]; then
   echo "$BACKUP_EX failed:"

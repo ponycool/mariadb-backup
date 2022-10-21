@@ -8,17 +8,14 @@ if [ "$BACKUP_DIR" = "" ]; then
   export BACKUP_DIR=$BACKUP_DIR
 fi
 
-# 将环境变量写入到文件中，方便定时任务在执行时获取
-echo "export BACKUP_SCRIPTS=$BACKUP_SCRIPTS" >>~/.bashrc
-echo "export BACKUP_DIR=$BACKUP_DIR" >>~/.bashrc
+# 将环境变量写入到文件中，方便定时任务在执行时获取，要不定时任务获取不到Docker设置的环境变量
+echo "export BACKUP_SCRIPTS='$BACKUP_SCRIPTS'" >/dockerenv
+echo "export BACKUP_DIR='$BACKUP_DIR'" >>/dockerenv
 # 备份选项
 if [ "$BACKUP_OPTIONS" = "" ]; then
   BACKUP_OPTIONS="--host=$HOST --port=$PORT --user=$USER --password=$PASSWORD"
 fi
-
-echo "export BACKUP_OPTIONS='$BACKUP_OPTIONS'" >>~/.bashrc
-
-source ~/.bashrc
+echo "export BACKUP_OPTIONS='$BACKUP_OPTIONS'" >>/dockerenv
 
 if [ "$1" == "init" ]; then
   # 初始化执行环境
