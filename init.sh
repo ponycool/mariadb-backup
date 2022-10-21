@@ -13,7 +13,7 @@ echo "export BACKUP_SCRIPTS='$BACKUP_SCRIPTS'" >/dockerenv
 echo "export BACKUP_DIR='$BACKUP_DIR'" >>/dockerenv
 # 备份选项
 if [ "$BACKUP_OPTIONS" = "" ]; then
-  BACKUP_OPTIONS="-H$HOST -P$PORT -u$USER --p$PASSWORD"
+  BACKUP_OPTIONS="-H$HOST -P$PORT -u$USER -p$PASSWORD"
 fi
 echo "export BACKUP_OPTIONS='$BACKUP_OPTIONS'" >>/dockerenv
 
