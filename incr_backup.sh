@@ -35,7 +35,7 @@ fi
 echo "Running new incremental backup using $INCR_BASE_DIR as base."
 echo "start exec $BACKUP_EX $BACKUP_OPTIONS --incremental $TMP_INCR_DIR --incremental-basedir $INCR_BASE_DIR > $TMP_FILE 2>&1"
 
-$BACKUP_EX "$BACKUP_OPTIONS" --incremental "$TMP_INCR_DIR" --incremental-basedir "$INCR_BASE_DIR" >"$TMP_FILE" 2>&1
+$BACKUP_EX $BACKUP_OPTIONS --incremental "$TMP_INCR_DIR" --incremental-basedir "$INCR_BASE_DIR" >"$TMP_FILE" 2>&1
 
 if [ -z "$(tail -1 "$TMP_FILE" | grep 'completed OK!')" ]; then
   echo "$BACKUP_EX failed:"
