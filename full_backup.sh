@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 echo "HAS_FALL_BACK=" >/.backTemp
-cd $(dirname "$0")
+cd $(dirname $0)
 . ./common.sh
 
 check_has_other_task
@@ -38,7 +38,7 @@ if [ -z "$(tail -1 "$TMP_FILE" | grep 'completed OK!')" ]; then
 fi
 
 # 这里获取这次备份的目录
-THIS_BACKUP=$(awk -- "/Backup created in directory/ { split( \$0, p, \"'\" ) ; print p[2] }"" $TMPFI"LE)
+THIS_BACKUP=$(awk -- "/Backup created in directory/ { split( \$0, p, \"'\" ) ; print p[2] }" "$TMP_FILE")
 echo "THIS_BACKUP=$THIS_BACKUP"
 rm -f "$TMP_FILE"
 echo
