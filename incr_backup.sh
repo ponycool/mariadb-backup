@@ -20,11 +20,11 @@ echo $(date_time)"最近的全备目录为: $LATEST_FULL"
 
 # 如果最近的全备仍然可用执行增量备份
 # 创建增量备份的目录
-TMP_INCR_DIR=$INCR_BACKUP_DIR/$LATEST_FULL
+TMP_INCR_DIR=$INCR_BACKUP_DIR/$BACKUP_DATETIME
 mkdir -p "$TMP_INCR_DIR"
 
 # 获取最近的增量备份目录
-LATEST_INCR=$(find "$TMP_INCR_DIR" -mindepth 1 -maxdepth 1 -type d | sort -nr | head -1)
+LATEST_INCR=$(find "$INCR_BACKUP_DIR" -mindepth 1 -maxdepth 1 -type d | sort -nr | head -1)
 echo "最近的增量备份目录为: $LATEST_INCR"
 # 如果是首次增量备份，那么BackupDir则选择全备目录，否则选择最近一次的增量备份目录
 if [ ! "$LATEST_INCR" ]; then
