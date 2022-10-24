@@ -27,7 +27,7 @@ rm -rf "$FULL_BACKUP_DIR" "$INCR_BACKUP_DIR"
 
 # mariabackup 备份是不能创建日期目录，需要手动创建
 FULL_BACKUP_DIR="$FULL_BACKUP_DIR/$BACKUP_DATETIME"
-mkdir "FULL_BACKUP_DIR"
+mkdir "$FULL_BACKUP_DIR"
 
 echo $(date_time)"start exec $BACKUP_EX --backup $BACKUP_OPTIONS --target-dir=$FULL_BACKUP_DIR > $TMP_FILE 2>&1"
 
