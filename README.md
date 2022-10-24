@@ -4,8 +4,8 @@
 
 MariaDB定时热备
 
-[MariaDB Backup 使用参考](https://mariadb.com/kb/en/mariabackup-overview/)
-[MariaDB Backup仓库的设置及使用参考](https://mariadb.com/kb/en/mariadb-package-repository-setup-and-usage/)
+1. [MariaDB Backup 使用参考](https://mariadb.com/kb/en/mariabackup-overview/)
+2. [MariaDB Backup仓库的设置及使用参考](https://mariadb.com/kb/en/mariadb-package-repository-setup-and-usage/)
 
 ## 安装（Installation）
 
