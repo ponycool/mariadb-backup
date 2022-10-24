@@ -34,8 +34,8 @@ date_time() {
 }
 
 BACKUP_EX=/usr/bin/mariabackup
-# 备份时间日期
-BACKUP_DATETIME=$(date +'%Y-%m-%d_%H-%M-%S')
+# 备份目录（日期+进程ID）
+BACKUP_DATETIME=$(date +'%Y-%m-%d_%H-%M-%S').$$
 TODAY=$(date +%Y%m%d%H%M)
 YESTERDAY=$(date -d "yesterday" +%Y%m%d%H%M)
 FULL_BACKUP_DIR=$BACKUP_DIR/full              # 全库备份的目录
