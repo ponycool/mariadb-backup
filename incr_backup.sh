@@ -18,11 +18,6 @@ echo $(date_time)"start exec incr back script"
 LATEST_FULL=$(find "$FULL_BACKUP_DIR" -mindepth 1 -maxdepth 1 -type d -printf "%P\n")
 echo $(date_time)"最近的全备目录为: $LATEST_FULL"
 
-# 如果最近的全备仍然可用执行增量备份
-# 创建增量备份的目录
-TMP_INCR_DIR=$INCR_BACKUP_DIR/$BACKUP_DATETIME
-mkdir -p "$TMP_INCR_DIR"
-
 # 获取最近的增量备份目录
 LATEST_INCR=$(find "$INCR_BACKUP_DIR" -mindepth 1 -maxdepth 1 -type d | sort -nr | head -1)
 echo "最近的增量备份目录为: $LATEST_INCR"
@@ -33,6 +28,12 @@ else
   INCR_BASE_DIR=$LATEST_INCR
 fi
 echo "Running new incremental backup using $INCR_BASE_DIR as base."
+
+# 如果最近的全备仍然可用执行增量备份
+# 创建增量备份的目录
+TMP_INCR_DIR=$INCR_BACKUP_DIR/$BACKUP_DATETIME
+mkdir -p "$TMP_INCR_DIR"
+
 echo "start exec $BACKUP_EX --backup $BACKUP_OPTIONS --target-dir $TMP_INCR_DIR --incremental-basedir $INCR_BASE_DIR > $TMP_FILE 2>&1"
 
 $BACKUP_EX --backup $BACKUP_OPTIONS --target-dir "$TMP_INCR_DIR" --incremental-basedir "$INCR_BASE_DIR" >"$TMP_FILE" 2>&1
