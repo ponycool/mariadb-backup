@@ -26,7 +26,3 @@ build:
     - apk add bash make
     - make build
     - make push
-  rules:
-    - if: $CI_COMMIT_BRANCH
-      exists:
-        - Dockerfile
